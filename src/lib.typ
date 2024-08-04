@@ -1,11 +1,17 @@
-/// Floats don’t work correctly when using `layout`, so we calculate
-/// the height of these another way. They don’t need a wrapper function,
-/// we’re directly applying the spacing via show rules.
+/// This function deals with the floating figures in your document.
+/// You don’t need to call it manually.
+///
+/// Unfortunately we can’t use ```typc layout()``` here since that messes with the floating.
+/// This means that figures wider than the line width are measured before they are shrunk down to fit,
+/// which results in inaccurate measurements.
+/// To solve this problem, the compiler will remind you to manually set the width of these figures.
+///
+/// - it (content): The figure.
+///
+/// -> content
 #let float-adjustment(it) = context {
   let body-size = measure(it.body).height
 
-  // Unfortunately we can’t accurately measure images wider than the text column,
-  // so we need to tell the user to manually set the figure body’s width.
   if it.kind == image {
     layout(size => {
       let container-width = size.width
@@ -36,18 +42,40 @@
   h(line-height)
 }
 
-/* This calculates the number of lines that fit on a page, ensuring that
-bottom floating figures line up with the last line on the page.
-You could have Typst calculate all of this, but unfortunately
-it cuts off the result 2 digits after the decimal. */
-// #context {
-//   let smaller-edge = calc.min(page.width, page.height)
-//   let y = calc.floor((page.height - (2 * smaller-edge * 2.5 / 21)) / lead)
-//   [Set `margin-y` to $ (page.height - #y dot.c #lead) / 2
-//   approx #((page.height - y * lead)/2) . $
-//   Typst is not accurate enough, please calculate it yourself.]
-// }
-
+/// Sets up the basic layout of the document.
+/// If you want to change the line height, you need to adjust the vertical margins so that the text area is an exact multiple of the line height.
+/// This is necessary because otherwise, floating figures won’t line up with the first/last line on the page.
+///
+/// To change an element’s line height, use its ```typ top-edge``` property: \
+/// ```typ #show heading: set text(top-edge: 18pt)```.
+///
+/// Note that inline math is wrapped in a ```typc box()``` to ensure a consistent line height.
+/// As a side effect, these formulas cannot be broken across lines.
+///
+/// - paper (string): The paper size.
+///
+/// - margin (dictionary): The margins.
+/// To calculate the correct margins, find out how many lines fit on the page and multiply them with the line height.
+/// That’s the height of the text area.
+/// Subtract this from the page height (default: 841.89~pt) and you get the total height of the vertical margins.
+/// Split this up as you like.
+///
+/// Example for Typst’s default settings (A4 paper, margins 2.5/21 × the page’s shorter edge) with a 13~pt line height:
+/// $ "lines per page" &= ("page height" - 2 × "vertical margin") / "line height" \
+///   &= (841.89 - 2 × 595.28 × 2.5 class("binary",slash) 21) / 13 \
+///   &= 53.85… "pt" \ \ \
+///   "new vertical margin" &= "page height" - "number of lines" × "line height" \
+///   &= 841.89 - 53 × 13 \
+///   &= 152.89 "pt" $
+///
+/// For even margins, simply divide by 2 and you get 76.445~pt (the package’s default setting).
+/// You could also, for example, make the bottom margin twice as high as the top margin by setting ```typc (bottom: 101.89pt, top: 51pt)```.
+///
+/// - font-size (length): The font size of the body text.
+///
+/// - line-height (length): The distance between lines of body text.
+///
+/// -> content
 #let gridlock(
   paper: "a4",
   margin: (y: 76.445pt),
@@ -60,6 +88,7 @@ it cuts off the result 2 digits after the decimal. */
     paper: paper,
     margin: margin,
   )
+
   set text(
     size: font-size,
     top-edge: line-height
@@ -74,16 +103,12 @@ it cuts off the result 2 digits after the decimal. */
                     // Don’t if you’re using the release version.
   )
 
-  set text(
-    top-edge: line-height,
-    size: font-size
-  )
-
   set block(spacing: 0pt)
   show quote.where(block: true): set block(spacing: line-height)
 
   show heading: set text(top-edge: 1.2em)
   show footnote.entry: set text(top-edge: 0.8em)
+  show math.equation.where(block: false): it => box(height: line-height, it)
 
   show figure.where(placement: top): float-adjustment
   show figure.where(placement: bottom): float-adjustment
@@ -92,11 +117,23 @@ it cuts off the result 2 digits after the decimal. */
   body
 }
 
-/// Wrapper function.
-/// Measures the size of its argument, calculates the appropriate spacing,
-/// and applies it using the `pad` function.
-#let lock(it) = context[#layout(size => [
-  #let (height,) = measure( block(width: size.width, it), )
+/// This function aligns blocks to the grid.
+/// It measures the size of its argument, calculates the appropriate spacing,
+/// and applies it using the ```typc pad()``` function.
+///
+/// Some elements are aligned automatically and do *not* need to be wrapped in ```typc lock()```:
+/// / block quotes: These have their spacing set to the line height.
+///   If you want to change the spacing, do ```typc #show quote.where(block: true): set block(spacing: 26pt)```.
+/// / lists (numbered, bulleted, term): These simply have their spacing set to 0~pt.
+///   If you want to change their spacing, use a show rule like with block quotes.
+/// / figures with the `placement` argument (floating figures): These are handled automatically with a show rule.
+///   Note that you *do* need to wrap non-floating figures in ```typc lock()```.
+///
+/// - body (content): The bock to be aligned.
+///
+/// -> content
+#let lock(body) = context[#layout(size => [
+  #let (height,) = measure( block(width: size.width, body), )
   #let line-height = text.top-edge
   #let padding = line-height
 
@@ -106,8 +143,8 @@ it cuts off the result 2 digits after the decimal. */
 
   #let pos = here().position().y
   #if pos == page.margin.top [
-    #pad(bottom: (padding + line-height - height), it)
+    #pad(bottom: (padding + line-height - height), body)
   ] else [
-    #pad(y: (padding - height + (2 * line-height)) / 2, it)
+    #pad(y: (padding - height + (2 * line-height)) / 2, body)
   ]
 ])]
