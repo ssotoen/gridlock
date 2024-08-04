@@ -1,3 +1,5 @@
+// typst c docs/gridlock-manual.typ --font-path docs/fonts --root ../
+
 #let typst-toml = toml("../typst.toml")
 #let project-version = typst-toml.package.version
 #let project-authors = typst-toml.package.authors.at(0)
