@@ -1,4 +1,10 @@
-#import "@local/gridlock:0.1.0": *
+#let typst-toml = toml("../typst.toml")
+#let project-version = typst-toml.package.version
+#let project-authors = typst-toml.package.authors.at(0)
+#show "[version-placeholder]": project-version
+
+#import "@local/gridlock:" + project-version: *
+#import "@preview/tidy:0.3.0"
 
 #set page(
   numbering: "1",
@@ -7,21 +13,44 @@
     let current-page = counter(page).at(loc).at(0)
 
   if current-page > 1 {
-    align(center, numbering("1", current-page))
+    align(center, text(9pt, numbering("1", current-page)))
   }
   })
 )
 
-#set text(font: "Reforma 1918")
+#set text(
+  font: "Reforma 1918",
+  stylistic-set: 4
+)
 
-#let typst-toml = toml("../typst.toml")
-#let project-version = typst-toml.package.version
-#let project-authors = typst-toml.package.authors.at(0)
+#set par(
+  justify: true
+)
 
 #set document(
-  title: "Manual for the Typst package “gridlock” (Version " + project-version + ")",
+  title: "Manual for the Typst package “gridlock” (Version\u{00a0}" + project-version + ")",
   author: project-authors,
 )
+
+#show raw.where(block: true): block.with(
+  width: 100%,
+  fill: gray.lighten(85%),
+  inset: 3mm,
+  radius: 1.5mm,
+)
+
+#show math.equation: set text(font: "Reforma 1918", weight: "light")
+
+#show footnote.entry: it => {
+  let loc = it.note.location()
+  numbering(
+    "1.",
+    ..counter(footnote).at(loc)
+  )
+  it.note.body
+}
+
+#show "i.e.": set text(lang: "la", style: "italic")
 
 #page[
   #set align(center)
@@ -31,16 +60,16 @@
 
   #text(16pt)[Grid typesetting in Typst]
 
-  #v(4em)
-    Version #project-version #h(3em) #datetime.today().display()
+  #v(3.5em)
+  Version #project-version #h(3em) #datetime.today().display()
 
   #project-authors
 
-  #v(4em)
+  #v(3em)
   #link("https://github.com/ssotoen/gridlock")[github.com/ssotoen/gridlock]
 
   #v(2fr)
-  #block(width: 30%)[#outline(
+  #block(width: 33%)[#outline(
     indent: 1em,
     depth: 2,
   )]
@@ -48,24 +77,82 @@
   #v(3em)
 ]
 
+#set page(
+  header: text(9pt, style: "italic")[The gridlock package #h(1fr) v#project-version]
+)
+
+#let pageref(label) = context {
+  let loc = locate(label)
+  let nums = counter(page).at(loc)
+  link(loc, numbering(loc.page-numbering(), ..nums))
+}
+
+= About
+
+gridlock provides a way to do grid typesetting in Typst.
+It does this by setting a line height for running text and using this as an invisible grid.
+Blocks that don’t fit into a line, like headings and figures, are aligned so that the running text after them sits on the grid again.
+Check out the examples on pages~#pageref(<example>) and #pageref(<example-lines>).
+
+= Quick start
+
+```typ
+#import "@preview/gridlock:[version-placeholder]": *
+
+#show: gridlock.with(
+  paper: "a4",
+  margin: (y: 76.445pt),
+  font-size: 11pt,
+  line-height: 13pt
+)
+
+#lock[= This is a heading]
+
+#lorem(30)
+
+#figure(
+  placement: auto,
+  caption: [a caption],
+  rect()
+)
+
+#lorem(30)
+```
+
+The ```typc gridlock()``` function sets up the base line height that for the grid.
+The parameters shown in the example are the default values.
+If you’re happy with them, you don’t need to pass anything to the function: just do ```typ #show: gridlock.with()```. \
+If you want to change the line height, make sure to set the margin so that the text area is an exact multiple of the new line height.
+
+Now you can use the ```typc lock()``` function to align any block to the text grid, like the heading shown in the example.
+Some elements---like the floating figure above---are aligned automatically and do *not* need to be used with ```typc lock()```.
+You can find a complete list in the function’s description in the next chapter.
+
+= Functions
+
+#tidy.show-module(
+  tidy.parse-module(read("../src/lib.typ")),
+  first-heading-level: 1,
+  sort-functions: it => {
+    (
+      "gridlock": 11,
+      "lock": 12,
+      "float-adjustment": 13
+    ).at(it.name, default: 99)
+  }
+)
+
+#show math.equation: set text(font: "New Computer Modern Math", stylistic-set: none)
+
 #show: gridlock.with(
   font-size: 11pt,
   line-height: 13pt
 )
 
 #page(
-  columns: 2,
-  background: stack(
-    dir: ttb,
-    let n = 0,
-    while n < 53 {
-    line(stroke: 0.1pt, length: 453.56pt)
-    v(13pt)
-    n += 1
-    },
-  )
+  columns: 2
 )[
-#lock[= Example]
+#lock[= Example] <example>
 #set heading(outlined: false)
 
 Hello, here is some text without a meaning.
@@ -135,7 +222,7 @@ There is no need for special content, but the length of the words should match t
 
 #figure(
   placement: top,
-  caption: [_The Great Wave off Kanagawa_ #box[by Katsushika Hokusai]],
+  caption: [#text(style: "italic")[The Great Wave off Kanagawa] #box[by Katsushika Hokusai]],
   image("assets/Tsunami_by_hokusai_19th_century.jpg", width: 217pt)
 )
 
@@ -143,14 +230,22 @@ Hello, here is some text without a meaning.
 This text should show what a printed text will look like at this place.
 If you read this text, you will get no information.
 Really?
-Is there no information?
-Is there a difference between this text and some nonsense like “Huardest gefburn”?
-Kjift—not at all!
-A blind text like this gives you information about the selected font, how the letters are written, and an impression of the look.
-This text should contain all letters of the alphabet and it should be written in the original language.
-There is no need for special content, but the length of the words should match the language.
-There is no need for special content, but the length of the words should match the language.
-There is no need for special content, but the length of the words should match the language.
+]
+
+#page(
+  columns: 2,
+  background: stack(
+    dir: ttb,
+    let n = 0,
+    while n < 53 {
+    v(13pt)
+    line(stroke: 0.1pt, length: 453.56pt)
+    n += 1
+    },
+  )
+)[
+#lock[= Example with grid lines] <example-lines>
+#set heading(outlined: false)
 
 Hello, here is some text without a meaning.
 This text should show what a printed text will look like at this place.
@@ -162,4 +257,68 @@ Kjift—not at all!
 A blind text like this gives you information about the selected font, how the letters are written, and an impression of the look.
 This text should contain all letters of the alphabet and it should be written in the original language.
 There is no need for special content, but the length of the words should match the language.
+
+This is the second paragraph.
+Hello, here is some text without a meaning.
+This text should show what a printed text will look like at this place.
+If you read this text, you will get no information.
+Really?
+
+#lock[== This is a long heading spanning multiple lines]
+
+Is there no information?
+Is there a difference between this text and some nonsense like “Huardest gefburn”?
+Kjift—not at all!
+A blind text like this gives you information about the selected font, how the letters are written, and an impression of the look.
+This text should contain all letters of the alphabet and it should be written in the original language.
+There is no need for special content, but the length of the words should match the language.
+#footnote[
+  And here we have a footnote.
+  Hello, here is some text without a meaning.
+  This text should show what a printed text will look like at this place.
+  If you read this text, you will get no information.
+]
+
+#quote(block: true)[
+This is a block quote.
+And after the second paragraph follows the third paragraph.
+]
+Hello, here is some text without a meaning.
+This text should show what a printed text will look like at this place.
+If you read this text, you will get no information.
+Really?
+Is there no information?
+Is there a difference between this text and some nonsense like “Huardest gefburn”?
+Kjift—not at all!
+A blind text like this gives you information about the selected font, how the letters are written, and an impression of the look.
+This text should contain all letters of the alphabet and it should be written in the original language.
+There is no need for special content, but the length of the words should match the language.
+
+#lock[$ x = (-b ± sqrt(b^2 - 4 a c))/(2a) $]
+
+#h(13pt)After this fourth paragraph, we start a new paragraph sequence.
+Hello, here is some text without a meaning.
+This text should show what a printed text will look like at this place.
+If you read this text, you will get no information.
+
+- A bulleted list
+  + Indented
+- Really?
+
+Is there no information?
+Is there a difference between this text and some nonsense like “Huardest gefburn”?
+Kjift—not at all!
+A blind text like this gives you information about the selected font, how the letters are written, and an impression of the look.
+This text should contain all letters of the alphabet and it should be written in the original language.
+There is no need for special content, but the length of the words should match the language.
+
+#figure(
+  placement: top,
+  caption: [#text(style: "italic")[The Great Wave off Kanagawa] #box[by Katsushika Hokusai]],
+  image("assets/Tsunami_by_hokusai_19th_century.jpg", width: 217pt)
+)
+
+Hello, here is some text without a meaning.
+This text should show what a printed text will look like at this place.
+Hello, here is some text without a meaning.
 ]
