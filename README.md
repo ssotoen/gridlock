@@ -1,15 +1,20 @@
 # The `gridlock` Package
 <div align="center">Version 0.1.0</div>
 
-A short description about the project and/or client.
+Grid typesetting in Typst.
+Use this package if you want to line up your body text across columns and pages.
+
+## Example
+
+![An example image showing a two-column page with headings, a block quote, a footnote, a figure, a display formula, and a bulleted list. All body text in both columns lines up.](docs/assets/example-lines.png)
 
 ## Template adaptation checklist
 
-- [ ] Fill out `README.md`
-  - Change the `my-package` package name, including code snippets
-  - Check section contents and/or delete sections that don't apply
+- [x] Fill out `README.md`
+  - [x] Change the `my-package` package name, including code snippets
+  - [ ] Check section contents and/or delete sections that don't apply
 - [x] Check and/or replace `LICENSE` by something that suits your needs
-- [ ] Fill out `typst.toml`
+- [x] Fill out `typst.toml`
   - See also the [typst/packages README](https://github.com/typst/packages/?tab=readme-ov-file#package-format)
 - [ ] Adapt Repository URLs in `CHANGELOG.md`
   - Consider only committing that file with your first release, or removing the "Initial Release" part in the beginning
@@ -22,7 +27,7 @@ A short description about the project and/or client.
 
     if configured correctly, whenever you create a tag `v...`, your package will be pushed onto a branch on the `REGISTRY_REPO`, from which you can then create a pull request against [typst/packages](https://github.com/typst/packages/)
 - [ ] remove/replace the example test case
-- [ ] (add your actual code, docs and tests)
+- [x] (add your actual code, docs and tests)
 - [ ] remove this section from the README
 
 ## Getting Started
@@ -30,35 +35,61 @@ A short description about the project and/or client.
 These instructions will get you a copy of the project up and running on the typst web app. Perhaps a short code example on importing the package and a very simple teaser usage.
 
 ```typ
-#import "@preview/my-package:0.1.0": *
+#import "@preview/gridlock:0.1.0": *
 
-#show: my-show-rule.with()
-#my-func()
-```
+#show: gridlock.with()
 
-### Installation
+#lock[= This is a heading]
 
-A step by step guide that will tell you how to get the development environment up and running. This should example how to clone the repo and where to (maybe a link to the typst documentation on it), along with any pre-requisite software and installation steps.
+#lorem(30)
 
-```
-$ First step
-$ Another step
-$ Final step
+#figure(
+  placement: auto,
+  caption: [a caption],
+  rect()
+)
+
+#lorem(30)
 ```
 
 ## Usage
 
-A more in-depth description of usage. Any template arguments? A complicated example that showcases most if not all of the functions the package provides? This is also an excellent place to signpost the manual.
+Check out [the manual](docs/manual.pdf) for a detailed description.
+
+To get started, import the package into your document:
 
 ```typ
-#import "@preview/my-package:0.1.0": *
-
-#let my-complicated-example = ...
+#import "@preview/gridlock:0.1.0": *
 ```
 
-## Additional Documentation and Acknowledgments
+Set up the basic parameters:
 
-* Project folder on server:
-* Confluence link:
-* Asana board:
-* etc...
+```typ
+#show: gridlock.with(
+  paper: "a4",
+  margin: (y: 76.445pt),
+  font-size: 11pt,
+  line-height: 13pt
+)
+```
+
+You can now use the `lock()` function to align any block to the text grid.
+Block quotes bulleted/numbered lists, and floating figures do _not_ need to be wrapped in `lock()`.
+Their spacing is handled fully automatically.
+
+```typ
+#lock[= Heading]
+
+#lorem(50)
+
+#lock(figure(
+  rect(),
+  caption: [An example figure aligned to the grid.]
+))
+
+#lorem(50)
+
+#lock[$ a^2 = b^2 + c^2 $]
+
+#lorem(50)
+```
