@@ -18,6 +18,7 @@
       let body-width = measure(it.body).width
 
       if body-width > container-width {
+        // TODO: v0.12 might introduce a warning function. could be more appropriate
         panic("Make sure none your figures are wider than " + str(container-width/1pt) + "pt.")
       }
     })
@@ -58,13 +59,13 @@
 /// To calculate the correct margins, find out how many lines fit on the page and multiply them with the line height.
 /// That’s the height of the text area.
 /// Subtract this from the page height (default: 841.89~pt) and you get the total height of the vertical margins.
-/// Split this up as you like.
+/// Split this up between top and bottom as you like.
 ///
 /// Example for Typst’s default settings (A4 paper, margins 2.5/21 × the page’s shorter edge) with a 13~pt line height:
 /// $ "lines per page" &= ("page height" - 2 × "vertical margin") / "line height" \
 ///   &= (841.89 - 2 × 595.28 × 2.5 class("binary",slash) 21) / 13 \
 ///   &= 53.85… "pt" \ \ \
-///   "new vertical margin" &= "page height" - "number of lines" × "line height" \
+///   "new vertical margin" &= "page height" - "lines per page" × "line height" \
 ///   &= 841.89 - 53 × 13 \
 ///   &= 152.89 "pt" $
 ///

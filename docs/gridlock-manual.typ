@@ -23,7 +23,11 @@
 #set text(
   font: "Reforma 1918",
   stylistic-set: 4
+  // TODO: Typst 0.12
+  // stylistic-set: (4, 5) // long-tail Q in roman (4) and italic (5)
 )
+
+#show math.equation: set text(font: "Reforma 1918", weight: "light")
 
 #set par(
   justify: true
@@ -41,8 +45,6 @@
   radius: 1.5mm,
 )
 
-#show math.equation: set text(font: "Reforma 1918", weight: "light")
-
 #show footnote.entry: it => {
   let loc = it.note.location()
   numbering(
@@ -51,8 +53,6 @@
   )
   it.note.body
 }
-
-#show "i.e.": set text(lang: "la", style: "italic")
 
 #page[
   #set align(center)
