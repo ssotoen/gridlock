@@ -5,7 +5,7 @@
 #let project-authors = typst-toml.package.authors.at(0)
 #show "[version-placeholder]": project-version
 
-#import "@local/gridlock:" + project-version: *
+#import "../src/lib.typ": *
 #import "@preview/tidy:0.3.0"
 
 #set page(
