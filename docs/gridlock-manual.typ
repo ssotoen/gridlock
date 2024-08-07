@@ -11,13 +11,13 @@
 #set page(
   numbering: "1",
 
-  footer: locate(loc => {
-    let current-page = counter(page).at(loc).at(0)
+  footer: context {
+    let current-page = counter(page).get().at(0)
 
-  if current-page > 1 {
-    align(center, text(9pt, numbering("1", current-page)))
+    if current-page > 1 {
+      align(center, text(9pt, numbering("1", current-page)))
+    }
   }
-  })
 )
 
 #set text(
