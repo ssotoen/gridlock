@@ -36,6 +36,14 @@
 #set document(
   title: "Manual for the Typst package “gridlock” (Version\u{00a0}" + project-version + ")",
   author: project-authors,
+  date: datetime(
+    year:   int(datetime.today().display().slice(count: 4, 0)),
+    month:  int(datetime.today().display().slice(count: 2, 5)),
+    day:    int(datetime.today().display().slice(count: 2, 8)),
+    hour:   1,
+    minute: 0,
+    second: 0
+  )
 )
 
 #show raw.where(block: true): block.with(
