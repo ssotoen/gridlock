@@ -62,12 +62,14 @@
 /// Split this up between top and bottom as you like.
 ///
 /// Example for Typst’s default settings (A4 paper, margins 2.5/21 × the page’s shorter edge) with a 13~pt line height:
-/// $ "lines per page" &= ("page height" - 2 × "vertical margin") / "line height" \
-///   &= (841.89 - 2 × 595.28 × 2.5 class("binary",slash) 21) / 13 \
-///   &= 53.85… "pt" \ \ \
-///   "new vertical margin" &= "page height" - "lines per page" × "line height" \
-///   &= 841.89 - 53 × 13 \
-///   &= 152.89 "pt" $
+/// $
+/// "lines per page" &= ("page height" - 2 × "vertical margin") / "line height" \
+/// &= (841.89 - 2 × 595.28 × 2.5 class("binary", slash) 21) / 13 \
+/// &= 53.85… "pt" \ \ \
+/// "new vertical margin" &= "page height" - "lines per page" × "line height" \
+/// &= 841.89 - 53 × 13 \
+/// &= 152.89 "pt"
+/// $
 ///
 /// For even margins, simply divide by 2 and you get 76.445~pt (the package’s default setting).
 /// You could also, for example, make the bottom margin twice as high as the top margin by setting ```typc (bottom: 101.89pt, top: 51pt)```.

@@ -12,7 +12,7 @@
   numbering: "1",
 
   footer: context {
-    let current-page = counter(page).get().at(0)
+    let current-page = counter(page).get().first()
 
     if current-page > 1 {
       align(center, text(9pt, numbering("1", current-page)))
@@ -27,7 +27,7 @@
   // stylistic-set: (4, 5) // long-tail Q in roman (4) and italic (5)
 )
 
-#show math.equation: set text(font: "Reforma 1918", weight: "light")
+#show math.equation: set text(stylistic-set: none)
 
 #set par(
   justify: true
@@ -61,6 +61,8 @@
   )
   it.note.body
 }
+
+#show outline:set text(number-type: "lining")
 
 #page[
   #set align(center)
@@ -135,7 +137,7 @@ If you’re happy with them, you don’t need to pass anything to the function: 
 If you want to change the line height, make sure to set the margin so that the text area is an exact multiple of the new line height.
 
 Now you can use the ```typc lock()``` function to align any block to the text grid, like the heading shown in the example.
-Some elements---like the floating figure above---are aligned automatically and do *not* need to be used with ```typc lock()```.
+Some elements---like the floating figure in the example above---are aligned automatically and do *not* need to be used with ```typc lock()```.
 You can find a complete list in the function’s description in the next chapter.
 
 = Functions
@@ -330,5 +332,6 @@ There is no need for special content, but the length of the words should match t
 
 Hello, here is some text without a meaning.
 This text should show what a printed text will look like at this place.
-Hello, here is some text without a meaning.
+If you read this text, you will get no information.
+Really?
 ]
