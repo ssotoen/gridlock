@@ -1,4 +1,4 @@
-// typst c docs/gridlock-manual.typ --font-path docs/fonts --root ../
+// typst c docs/gridlock-manual.typ --font-path docs/fonts --root ../ --pdf-standard a-2b
 
 #let typst-toml = toml("../typst.toml")
 #let project-version = typst-toml.package.version
@@ -22,9 +22,7 @@
 
 #set text(
   font: "Reforma 1918",
-  stylistic-set: 4
-  // TODO: Typst 0.12
-  // stylistic-set: (4, 5) // long-tail Q in roman (4) and italic (5)
+  stylistic-set: (4, 5), // long-tail Q in roman (4) and italic (5)
 )
 
 #show math.equation: set text(stylistic-set: none)
