@@ -11,7 +11,7 @@ repository = "https://github.com/ssotoen/gridlock"
 keywords = ["grid"]
 categories = ["layout"]
 # disciplines = []
-compiler = "0.11.1"
+compiler = "0.12.0"
 exclude = [
 	".github",
 	"docs",

@@ -101,9 +101,7 @@
     leading: 0pt,
     first-line-indent: line-height,
     justify: true,
-    // spacing: 0pt // Uncomment this property or set it in your main source file
-                    // ONLY if you’re on the web app or the main branch.
-                    // Don’t if you’re using the release version.
+    spacing: 0pt,
   )
 
   set block(spacing: 0pt)
