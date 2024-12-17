@@ -6,10 +6,12 @@
 /// which results in inaccurate measurements.
 /// To solve this problem, the compiler will remind you to manually set the width of these figures.
 ///
-/// - it (content): The figure.
-///
 /// -> content
-#let float-adjustment(it) = context {
+#let float-adjustment(
+  /// The figure.
+  /// -> content
+  it
+) = context {
   let body-size = measure(it.body).height
 
   if it.kind == image {
@@ -53,36 +55,39 @@
 /// Note that inline math is wrapped in a ```typc box()``` to ensure a consistent line height.
 /// As a side effect, these formulas cannot be broken across lines.
 ///
-/// - paper (string): The paper size.
-///
-/// - margin (dictionary): The margins.
-/// To calculate the correct margins, find out how many lines fit on the page and multiply them with the line height.
-/// That’s the height of the text area.
-/// Subtract this from the page height (default: 841.89~pt) and you get the total height of the vertical margins.
-/// Split this up between top and bottom as you like.
-///
-/// Example for Typst’s default settings (A4 paper, margins 2.5/21 × the page’s shorter edge) with a 13~pt line height:
-/// $
-/// "lines per page" &= ("page height" - 2 × "vertical margin") / "line height" \
-/// &= (841.89 - 2 × 595.28 × 2.5 class("binary", slash) 21) / 13 \
-/// &= 53.85… "pt" \ \ \
-/// "new vertical margin" &= "page height" - "lines per page" × "line height" \
-/// &= 841.89 - 53 × 13 \
-/// &= 152.89 "pt"
-/// $
-///
-/// For even margins, simply divide by 2 and you get 76.445~pt (the package’s default setting).
-/// You could also, for example, make the bottom margin twice as high as the top margin by setting ```typc (bottom: 101.89pt, top: 51pt)```.
-///
-/// - font-size (length): The font size of the body text.
-///
-/// - line-height (length): The distance between lines of body text.
-///
 /// -> content
 #let gridlock(
+  /// The paper size.
+  /// -> string
   paper: "a4",
+
+  /// The margins.
+  /// To calculate the correct margins, find out how many lines fit on the page and multiply them with the line height.
+  /// That’s the height of the text area.
+  /// Subtract this from the page height (default: 841.89~pt) and you get the total height of the vertical margins.
+  /// Split this up between top and bottom as you like.
+  ///
+  /// Example for Typst’s default settings (A4 paper, margins 2.5/21 × the page’s shorter edge) with a 13~pt line height:
+  /// $
+  /// "lines per page" &= ("page height" - 2 × "vertical margin") / "line height" \
+  /// &= (841.89 - 2 × 595.28 × 2.5 class("binary", slash) 21) / 13 \
+  /// &= 53.85… "pt" \ \ \
+  /// "new vertical margin" &= "page height" - "lines per page" × "line height" \
+  /// &= 841.89 - 53 × 13 \
+  /// &= 152.89 "pt"
+  /// $
+  ///
+  /// For even margins, simply divide by 2 and you get 76.445~pt (the package’s default setting).
+  /// You could also, for example, make the bottom margin twice as high as the top margin by setting ```typc (bottom: 101.89pt, top: 51pt)```.
+  /// -> dictionary
   margin: (y: 76.445pt),
+
+  ///The font size of the body text.
+  /// -> length
   font-size: 11pt,
+
+  /// The distance between lines of body text.
+  /// -> length
   line-height: 13pt,
 
   body,
@@ -130,10 +135,12 @@
 /// / figures with the `placement` argument (floating figures): These are handled automatically with a show rule.
 ///   Note that you *do* need to wrap non-floating figures in ```typc lock()```.
 ///
-/// - body (content): The bock to be aligned.
-///
 /// -> content
-#let lock(body) = context[#layout(size => [
+#let lock(
+  /// The block to be aligned.
+  /// -> content
+  body
+) = context[#layout(size => [
   #let (height,) = measure( block(width: size.width, body), )
   #let line-height = text.top-edge
   #let padding = line-height

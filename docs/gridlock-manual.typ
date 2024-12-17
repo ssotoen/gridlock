@@ -6,7 +6,7 @@
 #show "[version-placeholder]": project-version
 
 #import "../src/lib.typ": *
-#import "@preview/tidy:0.3.0"
+#import "@preview/tidy:0.4.0"
 
 #set page(
   numbering: "1",
