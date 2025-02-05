@@ -91,18 +91,14 @@
   header: text(9pt, style: "italic")[The gridlock package #h(1fr) v#project-version]
 )
 
-#let pageref(label) = context {
-  let loc = locate(label)
-  let nums = counter(page).at(loc)
-  link(loc, numbering(loc.page-numbering(), ..nums))
-}
+#let pageref = ref.with(form: "page")
 
 = About
 
 gridlock provides a way to do grid typesetting in Typst.
 It does this by setting a line height for running text and using this as an invisible grid.
 Blocks that don’t fit into a line, like headings and figures, are aligned so that the running text after them sits on the grid again.
-Check out the examples on pages~#pageref(<example>) and #pageref(<example-lines>).
+Check out the examples on #pageref(<example>) and #pageref(<example-lines>).
 
 = Quick start
 
