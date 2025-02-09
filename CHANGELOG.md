@@ -8,6 +8,10 @@
 
 ## Migration Guide from v0.1.X -->
 
+## Unreleased
+
+Added option to indent all paragraphs
+
 ## v0.2.0 (2024-10-19)
 
 - Added support for Typst 0.12’s new `par.spacing` property

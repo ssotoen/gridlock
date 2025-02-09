@@ -90,6 +90,10 @@
   /// -> length
   line-height: 13pt,
 
+  /// If all paragraphs should be indented, not just consecutive ones.
+  /// -> bool
+  indent-all: false,
+
   body,
 ) = {
   set page(
@@ -104,7 +108,7 @@
 
   set par(
     leading: 0pt,
-    first-line-indent: line-height,
+    first-line-indent: (amount: line-height, all: indent-all),
     justify: true,
     spacing: 0pt,
   )
