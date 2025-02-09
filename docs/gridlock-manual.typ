@@ -5,6 +5,8 @@
 #let project-authors = typst-toml.package.authors.at(0)
 #show "[version-placeholder]": project-version
 
+#let doc-title = "The gridlock package"
+
 #import "../src/lib.typ": *
 #import "@preview/tidy:0.4.0"
 
@@ -32,16 +34,17 @@
 )
 
 #set document(
-  title: "Manual for the Typst package “gridlock” (Version\u{00a0}" + project-version + ")",
+  title: doc-title,
+  description: "Manual for the Typst package “gridlock” (Version\u{00a0}" + project-version + ")",
   author: project-authors,
   date: datetime(
-    year:   int(datetime.today().display().slice(count: 4, 0)),
-    month:  int(datetime.today().display().slice(count: 2, 5)),
-    day:    int(datetime.today().display().slice(count: 2, 8)),
+    year:   datetime.today().year(),
+    month:  datetime.today().month(),
+    day:    datetime.today().day(),
     hour:   1,
     minute: 0,
-    second: 0
-  )
+    second: 0,
+  ),
 )
 
 #show raw.where(block: true): block.with(
@@ -66,7 +69,7 @@
   #set align(center)
 
   #v(1fr)
-  #text(28pt, weight: "bold")[The gridlock package]
+  #text(28pt, weight: "bold", doc-title)
 
   #text(16pt)[Grid typesetting in Typst]
 
@@ -152,7 +155,7 @@ You can find a complete list in the function’s description in the next chapter
 
 #show: gridlock.with(
   font-size: 11pt,
-  line-height: 13pt
+  line-height: 13pt,
 )
 
 #page(
@@ -210,7 +213,7 @@ There is no need for special content, but the length of the words should match t
 
 #lock[$ x = (-b ± sqrt(b^2 - 4 a c))/(2a) $]
 
-#h(13pt)After this fourth paragraph, we start a new paragraph sequence.
+After this fourth paragraph, we start a new paragraph sequence.
 Hello, here is some text without a meaning.
 This text should show what a printed text will look like at this place.
 If you read this text, you will get no information.
@@ -302,7 +305,7 @@ There is no need for special content, but the length of the words should match t
 
 #lock[$ x = (-b ± sqrt(b^2 - 4 a c))/(2a) $]
 
-#h(13pt)After this fourth paragraph, we start a new paragraph sequence.
+After this fourth paragraph, we start a new paragraph sequence.
 Hello, here is some text without a meaning.
 This text should show what a printed text will look like at this place.
 If you read this text, you will get no information.
