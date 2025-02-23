@@ -103,7 +103,7 @@
 
   set text(
     size: font-size,
-    top-edge: line-height
+    top-edge: line-height,
   )
 
   set par(
@@ -144,19 +144,19 @@
   /// The block to be aligned.
   /// -> content
   body
-) = context[#layout(size => [
-  #let (height,) = measure( block(width: size.width, body), )
-  #let line-height = text.top-edge
-  #let padding = line-height
+) = context layout(size => {
+  let (height,) = measure( block(width: size.width, body), )
+  let line-height = text.top-edge
+  let padding = line-height
 
-  #while height > padding {
+  while height > padding {
     padding += line-height
   }
 
-  #let pos = here().position().y
-  #if pos == page.margin.top [
-    #pad(bottom: (padding + line-height - height), body)
-  ] else [
-    #pad(y: (padding - height + (2 * line-height)) / 2, body)
-  ]
-])]
+  let pos = here().position().y
+  if pos == page.margin.top {
+    pad(bottom: (padding + line-height - height), body)
+   } else {
+    pad(y: (padding - height + (2 * line-height)) / 2, body)
+   }
+})
