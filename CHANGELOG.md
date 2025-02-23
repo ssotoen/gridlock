@@ -8,7 +8,7 @@
 
 ## Migration Guide from v0.1.X -->
 
-## Unreleased
+## v0.3.0 (2025-02-23)
 
 Added option to indent all paragraphs
 
