@@ -61,6 +61,8 @@
   /// -> string
   paper: "a4",
 
+  /// #let mtext = text.with(font: "Reforma 1918", weight: "thin")
+  ///
   /// The margins.
   /// To calculate the correct margins, find out how many lines fit on the page and multiply them with the line height.
   /// That’s the height of the text area.
@@ -69,12 +71,12 @@
   ///
   /// Example for Typst’s default settings (A4 paper, margins 2.5/21 × the page’s shorter edge) with a 13~pt line height:
   /// $
-  /// "lines per page" &= ("page height" - 2 × "vertical margin") / "line height" \
+  /// #mtext[lines per page] &= (#mtext[page height] - 2 × #mtext[vertical margin]) / #mtext[line height] \
   /// &= (841.89 - 2 × 595.28 × 2.5 class("binary", slash) 21) / 13 \
-  /// &= 53.85… "pt" \ \ \
-  /// "new vertical margin" &= "page height" - "lines per page" × "line height" \
+  /// &= 53.85… #mtext[pt] \ \ \
+  /// #mtext[new vertical margin] &= #mtext[page height] - #mtext[lines per page] × #mtext[line height] \
   /// &= 841.89 - 53 × 13 \
-  /// &= 152.89 "pt"
+  /// &= 152.89 #mtext[pt]
   /// $
   ///
   /// For even margins, simply divide by 2 and you get 76.445~pt (the package’s default setting).
