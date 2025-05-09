@@ -60,6 +60,8 @@
   /// The paper size.
   /// -> string
   paper: "a4",
+  height: 0pt,
+  width: 0pt,
 
   /// #let mtext = text.with(font: "Reforma 1918", weight: "thin")
   ///
@@ -98,10 +100,18 @@
 
   body,
 ) = {
-  set page(
-    paper: paper,
-    margin: margin,
-  )
+  if height == 0pt {
+    set page(
+      paper: paper,
+      margin: margin,
+    )
+  } else {
+    set page(
+      height: height,
+      width: width,
+      margin: margin,
+    )
+  }
 
   set text(
     size: font-size,
