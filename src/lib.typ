@@ -100,18 +100,16 @@
 
   body,
 ) = {
-  if height == 0pt {
-    set page(
-      paper: paper,
-      margin: margin,
-    )
-  } else {
-    set page(
-      height: height,
-      width: width,
-      margin: margin,
-    )
-  }
+  set page(
+    margin: margin,
+    paper: paper,
+  )
+
+  // Override the paper size if custom dimensions are given
+  set page(
+    height: page-height,
+    width: page-width,
+  ) if page-height != 0pt or page-width != 0pt
 
   set text(
     size: font-size,
