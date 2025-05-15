@@ -60,8 +60,16 @@
   /// The paper size.
   /// -> string
   paper: "a4",
-  height: 0pt,
-  width: 0pt,
+
+  /// The page height.
+  /// Only needed if your paper size isn’t supported by the `paper` parameter.
+  /// -> length
+  page-height: 0pt,
+
+  /// The page width.
+  /// Only needed if your paper size isn’t supported by the `paper` parameter.
+  /// -> length
+  page-width: 0pt,
 
   /// #let mtext = text.with(font: "Reforma 1918", weight: "thin")
   ///
