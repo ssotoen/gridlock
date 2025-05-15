@@ -21,7 +21,7 @@
 
       if body-width > container-width {
         // TODO: v0.12 might introduce a warning function. could be more appropriate
-        panic("Make sure none your figures are wider than " + str(container-width/1pt) + "pt.")
+        panic("Make sure none of your figures are wider than " + str(container-width/1pt) + "pt.")
       }
     })
   }
@@ -150,11 +150,11 @@
 /// and applies it using the ```typc pad()``` function.
 ///
 /// Some elements are aligned automatically and do *not* need to be wrapped in ```typc lock()```:
-/// / block quotes: These have their spacing set to the line height.
+/// / Block quotes: These have their spacing set to the line height.
 ///   If you want to change the spacing, do ```typc #show quote.where(block: true): set block(spacing: 26pt)```.
-/// / lists (numbered, bulleted, term): These simply have their spacing set to 0~pt.
+/// / Lists (numbered, bulleted, term): These simply have their spacing set to 0~pt.
 ///   If you want to change their spacing, use a show rule like with block quotes.
-/// / figures with the `placement` argument (floating figures): These are handled automatically with a show rule.
+/// / Figures with the `placement` argument (floating figures): These are handled automatically with a show rule.
 ///   Note that you *do* need to wrap non-floating figures in ```typc lock()```.
 ///
 /// -> content
