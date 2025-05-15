@@ -89,10 +89,10 @@
   /// &= 152.89 #mtext[pt]
   /// $
   ///
-  /// For even margins, simply divide by 2 and you get 76.445~pt (the package’s default setting).
+  /// For even margins, simply divide by 2 and you get 76.445~pt (the package’s default setting is slightly lower to avoid a rounding error).
   /// You could also, for example, make the bottom margin twice as high as the top margin by setting ```typc (bottom: 101.89pt, top: 51pt)```.
   /// -> dictionary
-  margin: (y: 76.445pt),
+  margin: (y: 76.444pt),
 
   ///The font size of the body text.
   /// -> length
