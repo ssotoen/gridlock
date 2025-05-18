@@ -1,4 +1,4 @@
-# The `gridlock` Package (v0.3.0)
+# The `gridlock` Package (v0.4.0)
 
 Grid typesetting in Typst.
 Use this package if you want to line up your body text across columns and pages.
@@ -10,7 +10,7 @@ Use this package if you want to line up your body text across columns and pages.
 ## Getting Started
 
 ```typ
-#import "@preview/gridlock:0.3.0": *
+#import "@preview/gridlock:0.4.0": *
 
 #show: gridlock.with()
 
@@ -34,7 +34,7 @@ Check out [the manual](docs/gridlock-manual.pdf) for a detailed description.
 To get started, import the package into your document:
 
 ```typ
-#import "@preview/gridlock:0.3.0": *
+#import "@preview/gridlock:0.4.0": *
 ```
 
 Set up the basic parameters:
