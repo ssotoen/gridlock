@@ -58,18 +58,9 @@
 /// -> content
 #let gridlock(
   /// The paper size.
-  /// -> string
+  /// Can be either a string or a dictionary in the form ```typc (x: width, y: height)```.
+  /// -> string | dictionary
   paper: "a4",
-
-  /// The page height.
-  /// Only needed if your paper size isn’t supported by the `paper` parameter.
-  /// -> length
-  page-height: 0pt,
-
-  /// The page width.
-  /// Only needed if your paper size isn’t supported by the `paper` parameter.
-  /// -> length
-  page-width: 0pt,
 
   /// #let mtext = text.with(font: "Reforma 1918", weight: "thin")
   ///
@@ -108,16 +99,16 @@
 
   body,
 ) = {
+  assert(
+    type(paper) == str or type(paper) == dictionary,
+    message: "expected string or dictionary for paper argument, found " + str(type(paper))
+  )
+  set page(paper: paper) if type(paper) == str
+  set page(width: paper.x, height: paper.y) if type(paper) == dictionary
+
   set page(
     margin: margin,
-    paper: paper,
   )
-
-  // Override the paper size if custom dimensions are given
-  set page(
-    height: page-height,
-    width: page-width,
-  ) if page-height != 0pt or page-width != 0pt
 
   set text(
     size: font-size,
