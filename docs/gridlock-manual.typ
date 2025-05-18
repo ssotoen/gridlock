@@ -27,7 +27,10 @@
   stylistic-set: (4, 5), // long-tail Q in roman (4) and italic (5)
 )
 
-#show math.equation: set text(stylistic-set: none)
+#show math.equation: set text(
+  stylistic-set: none,
+  weight: "regular",
+)
 
 #set par(
   justify: true
@@ -150,8 +153,6 @@ You can find a complete list in the function’s description in the next chapter
     ).at(it.name, default: 99)
   }
 )
-
-#show math.equation: set text(font: "New Computer Modern Math", stylistic-set: none)
 
 #show: gridlock.with(
   font-size: 11pt,
