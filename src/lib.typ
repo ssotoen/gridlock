@@ -153,7 +153,7 @@
   /// The block to be aligned.
   /// -> content
   body
-) = context layout(size => {
+) = layout(size => {
   let (height,) = measure( block(width: size.width, body), )
   let line-height = text.top-edge
   let padding = line-height
