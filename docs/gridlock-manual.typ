@@ -8,7 +8,7 @@
 #let doc-title = "The gridlock package"
 
 #import "../src/lib.typ": *
-#import "@preview/tidy:0.4.1"
+#import "@preview/tidy:0.4.3"
 
 #set page(
   numbering: "1",
