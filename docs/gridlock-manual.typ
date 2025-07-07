@@ -113,7 +113,7 @@ Check out the examples on #pageref(<example>) and #pageref(<example-lines>).
 
 #show: gridlock.with(
   paper: "a4",
-  margin: (y: 76.445pt),
+  margin: (y: 76.444pt),
   font-size: 11pt,
   line-height: 13pt
 )
@@ -154,30 +154,26 @@ You can find a complete list in the function’s description in the next chapter
   }
 )
 
+#pagebreak(to: "even")
+
 #show: gridlock.with(
   font-size: 11pt,
   line-height: 13pt,
 )
 
-#page(
-  columns: 2,
-)[
-  #lock[= Example] <example>
-  #include "example-text.typ"
-]
+#set page(columns: 2)
 
-#page(
-  columns: 2,
+#lock[= Example] <example>
+#include "example-text.typ"
+
+#set page(
   background: stack(
-    dir: ttb,
-    let n = 0,
-    while n < 53 {
-    v(13pt)
-    line(stroke: 0.1pt, length: 453.56pt)
-    n += 1
+    for n in range(53) {
+      v(13pt)
+      line(stroke: 0.1pt, length: 453.56pt)
     },
   )
-)[
-  #lock[= Example with grid lines] <example-lines>
-  #include "example-text.typ"
-]
+)
+
+#lock[= Example with grid lines] <example-lines>
+#include "example-text.typ"
