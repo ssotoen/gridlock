@@ -1,4 +1,4 @@
-#import "../src/lib.typ": lock
+#import "/src/gridlock.typ": lock
 
 #set heading(outlined: false)
 

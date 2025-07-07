@@ -1,13 +1,13 @@
-// typst c docs/gridlock-manual.typ --font-path docs/fonts --root ../ --pdf-standard a-2b
+// typst c docs/gridlock-manual.typ --font-path docs/fonts --root ./ --pdf-standard a-2b
 
-#let typst-toml = toml("../typst.toml")
+#let typst-toml = toml("/typst.toml")
 #let project-version = typst-toml.package.version
 #let project-authors = typst-toml.package.authors.at(0)
 #show "[version-placeholder]": project-version
 
 #let doc-title = "The gridlock package"
 
-#import "../src/lib.typ": *
+#import "/src/gridlock.typ": *
 #import "@preview/tidy:0.4.3"
 
 #set page(
@@ -143,7 +143,7 @@ You can find a complete list in the function’s description in the next chapter
 = Functions
 
 #tidy.show-module(
-  tidy.parse-module(read("../src/lib.typ")),
+  tidy.parse-module(read("/src/gridlock.typ")),
   first-heading-level: 1,
   sort-functions: it => {
     (

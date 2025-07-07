@@ -8,7 +8,7 @@ default:
 
 # generate manual
 doc:
-  typst compile docs/gridlock-manual.typ docs/gridlock-manual.pdf --font-path docs/fonts --root ../
+  typst compile docs/gridlock-manual.typ docs/gridlock-manual.pdf --font-path docs/fonts --root ./
 
 # run test suite
 test *args:
