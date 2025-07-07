@@ -13,12 +13,12 @@ categories = ["layout"]
 # disciplines = []
 compiler = "0.13.0"
 exclude = [
-	".github",
-	"docs",
-	"scripts",
-	"tests",
-	".typstignore",
-	"Justfile",
+  ".github",
+  "docs",
+  "scripts",
+  "tests",
+  ".typstignore",
+  "Justfile",
 ]
 
 # [template]

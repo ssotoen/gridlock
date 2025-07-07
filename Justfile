@@ -4,19 +4,19 @@ export TYPST_ROOT := root
 
 [private]
 default:
-	@just --list --unsorted
+  @just --list --unsorted
 
 # generate manual
 doc:
-	typst compile docs/gridlock-manual.typ docs/gridlock-manual.pdf --font-path docs/fonts --root ../
+  typst compile docs/gridlock-manual.typ docs/gridlock-manual.pdf --font-path docs/fonts --root ../
 
 # run test suite
 test *args:
-	typst-test run {{ args }}
+  typst-test run {{ args }}
 
 # update test cases
 update *args:
-	typst-test update {{ args }}
+  typst-test update {{ args }}
 
 # package the library into the specified destination folder
 package target:
