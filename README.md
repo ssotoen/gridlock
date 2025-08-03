@@ -5,7 +5,7 @@ Use this package if you want to line up your body text across columns and pages.
 
 ## Example
 
-![An example image showing a two-column page with headings, a block quote, a footnote, a figure, a display formula, and a bulleted list. All body text in both columns lines up.](docs/assets/example-lines.png)
+![An example image showing a two-column page with headings, a block quote, a footnote, a figure, a display formula, and a bulleted list. All body text in both columns lines up.](docs/preview.png)
 
 ## Getting Started
 
