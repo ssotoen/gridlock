@@ -33,7 +33,7 @@
 )
 
 #set par(
-  justify: true
+  justify: true,
 )
 
 #set document(
@@ -97,25 +97,25 @@
   header: text(9pt, style: "italic")[The gridlock package #h(1fr) v#project-version]
 )
 
-#let pageref = ref.with(form: "page")
+#let pageref = ref.with(form: "page", supplement: none)
 
 = About
 
 gridlock provides a way to do grid typesetting in Typst.
 It does this by setting a line height for running text and using this as an invisible grid.
 Blocks that don’t fit into a line, like headings and figures, are aligned so that the running text after them sits on the grid again.
-Check out the examples on #pageref(<example>) and #pageref(<example-lines>).
+Check out the examples on pages #pageref(<example>) and #pageref(<example-lines>).
 
 = Quick start
 
 ```typ
-#import "@preview/gridlock:[version-placeholder]": *
+#import "@preview/gridlock:[version-placeholder]": gridlock, lock
 
 #show: gridlock.with(
   paper: "a4",
   margin: (y: 76.444pt),
   font-size: 11pt,
-  line-height: 13pt
+  line-height: 13pt,
 )
 
 #lock[= This is a heading]
@@ -133,7 +133,7 @@ Check out the examples on #pageref(<example>) and #pageref(<example-lines>).
 
 The ```typc gridlock()``` function sets up the base line height that for the grid.
 The parameters shown in the example are the default values.
-If you’re happy with them, you don’t need to pass anything to the function: just do ```typ #show: gridlock.with()```. \
+If you’re happy with them, you don’t need to pass anything to the function: just do ```typ #show: gridlock```. \
 If you want to change the line height, make sure to set the margin so that the text area is an exact multiple of the new line height.
 
 Now you can use the ```typc lock()``` function to align any block to the text grid, like the heading shown in the example.
@@ -154,12 +154,9 @@ You can find a complete list in the function’s description in the next chapter
   }
 )
 
-#pagebreak(to: "even")
+#pagebreak(weak: true)
 
-#show: gridlock.with(
-  font-size: 11pt,
-  line-height: 13pt,
-)
+#show: gridlock
 
 #set page(columns: 2)
 

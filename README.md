@@ -10,9 +10,14 @@ Use this package if you want to line up your body text across columns and pages.
 ## Getting Started
 
 ```typ
-#import "@preview/gridlock:0.4.0": *
+#import "@preview/gridlock:0.4.0": gridlock, lock
 
-#show: gridlock.with()
+#show: gridlock.with(
+  paper: "a4",
+  margin: (y: 76.444pt),
+  font-size: 11pt,
+  line-height: 13pt,
+)
 
 #lock[= This is a heading]
 
