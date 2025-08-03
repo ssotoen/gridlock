@@ -9,7 +9,11 @@ license = "Unlicense"
 description = "Grid typesetting in Typst"
 repository = "https://github.com/ssotoen/gridlock"
 keywords = ["grid"]
-categories = ["layout"]
+categories = [
+  "layout",
+  "book",
+  "paper",
+]
 # disciplines = []
 compiler = "0.13.0"
 exclude = [ "docs", ]
