@@ -12,14 +12,7 @@ keywords = ["grid"]
 categories = ["layout"]
 # disciplines = []
 compiler = "0.13.0"
-exclude = [
-  ".github",
-  "docs",
-  "scripts",
-  "tests",
-  ".typstignore",
-  "Justfile",
-]
+exclude = [ "docs", ]
 
 # [template]
 # path = "template"
