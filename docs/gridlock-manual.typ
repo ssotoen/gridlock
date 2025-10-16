@@ -5,7 +5,7 @@
 #let project-authors = typst-toml.package.authors.at(0)
 #show "[version-placeholder]": project-version
 
-#let doc-title = "The gridlock package"
+#let doc-title = "The Gridlock Package"
 
 #import "/src/gridlock.typ": *
 #import "@preview/tidy:0.4.3"
@@ -66,7 +66,7 @@
   it.note.body
 }
 
-#show outline:set text(number-type: "lining")
+#show outline: set text(number-type: "lining")
 
 #page[
   #set align(center)
@@ -94,14 +94,14 @@
 ]
 
 #set page(
-  header: text(9pt, style: "italic")[The gridlock package #h(1fr) v#project-version]
+  header: text(9pt, style: "italic")[#doc-title #h(1fr) v#project-version]
 )
 
 #let pageref = ref.with(form: "page", supplement: none)
 
 = About
 
-gridlock provides a way to do grid typesetting in Typst.
+_Gridlock_ provides a way to do grid typesetting in Typst.
 It does this by setting a line height for running text and using this as an invisible grid.
 Blocks that don’t fit into a line, like headings and figures, are aligned so that the running text after them sits on the grid again.
 Check out the examples on pages #pageref(<example>) and #pageref(<example-lines>).
