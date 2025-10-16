@@ -34,6 +34,7 @@
 
 #set par(
   justify: true,
+  justification-limits: (tracking: (min: 0pt, max: 0.01em)),
 )
 
 #set document(
@@ -70,9 +71,10 @@
 
 #page[
   #set align(center)
+  #show title: set text(28pt, weight: "bold")
 
   #v(1fr)
-  #text(28pt, weight: "bold", doc-title)
+  #title()
 
   #text(16pt)[Grid typesetting in Typst]
 
