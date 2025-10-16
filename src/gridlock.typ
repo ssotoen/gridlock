@@ -26,6 +26,15 @@
   /// Split this up between top and bottom as you like.
   ///
   /// Example for Typst’s default settings (A4 paper, margins 2.5/21 × the page’s shorter edge) with a 13~pt line height:
+  /// #math.equation(
+  /// block: true,
+  /// alt: "
+  /// Lines per page equals page height minus 2 times vertical margin over line height
+  /// equals 53.85… point.
+  ///
+  /// New vertical margin equals page height minus lines per page times line height
+  /// equals 152.89 point.
+  /// ",
   /// $
   /// #mtext[lines per page] &= (#mtext[page height] - 2 × #mtext[vertical margin]) / #mtext[line height] \
   /// &= (841.89 - 2 × 595.28 × 2.5 class("binary", slash) 21) / 13 \
@@ -34,6 +43,7 @@
   /// &= 841.89 - 53 × 13 \
   /// &= 152.89 #mtext[pt]
   /// $
+  /// )
   ///
   /// For even margins, simply divide by 2 and you get 76.445~pt (the package’s default setting is slightly lower to avoid a rounding error).
   /// You could also, for example, make the bottom margin twice as high as the top margin by setting ```typc (bottom: 101.89pt, top: 51pt)```.

@@ -49,7 +49,11 @@ A blind text like this gives you information about the selected font, how the le
 This text should contain all letters of the alphabet and it should be written in the original language.
 There is no need for special content, but the length of the words should match the language.
 
-#lock[$ x = (-b ± sqrt(b^2 - 4 a c))/(2a) $]
+#lock(math.equation(
+  block: true,
+  alt: "x equals minus b plus minus the square root of b squared minus 4 a c over 2 a",
+  $ x = (-b ± sqrt(b^2 - 4 a c))/(2a) $,
+))
 
 After this fourth paragraph, we start a new paragraph sequence.
 Hello, here is some text without a meaning.
@@ -70,7 +74,11 @@ There is no need for special content, but the length of the words should match t
 #figure(
   placement: top,
   caption: [#text(style: "italic")[The Great Wave off Kanagawa] #box[by Katsushika Hokusai]],
-  image("assets/Tsunami_by_hokusai_19th_century.jpg", width: 217pt)
+  image(
+    width: 217pt,
+    alt: "A massive wave towering over two wooden fishing boats, with Mt Fuji visible in the background.",
+    "assets/Tsunami_by_hokusai_19th_century.jpg",
+  ),
 )
 
 Hello, here is some text without a meaning.
