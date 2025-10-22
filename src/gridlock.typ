@@ -53,7 +53,7 @@
   indent-all: false,
 
   body,
-) = {
+) = context if target() == "html" { body } else {
   assert(
     type(paper) == str or type(paper) == dictionary,
     message: "expected string or dictionary for paper argument, found " + str(type(paper))
@@ -108,7 +108,7 @@
   /// The block to be aligned.
   /// -> content
   body
-) = layout(size => {
+) = context if target() == "html" { body } else { layout(size => {
   let (height,) = measure( block(width: size.width, body), )
   let line-height = text.top-edge
   let padding = line-height
@@ -123,4 +123,4 @@
    } else {
     pad(y: (padding - height + (2 * line-height)) / 2, body)
    }
-})
+}) }
